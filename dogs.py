@@ -29,10 +29,12 @@ def show_image():
             img_size = (int(width_spinbox.get()), int(height_spinbox.get()))
             img.thumbnail(img_size)
             img = ImageTk.PhotoImage(img)
-            new_window = Toplevel(window)
-            new_window.title("Случайное изображение")
-            lb = ttk.Label(new_window, image=img)
-            lb.pack(pady=10)
+            # new_window = Toplevel(window)
+            # new_window.title("Случайное изображение")
+            tab = ttk.Frame(notebook)
+            notebook.add(tab, text=f"Картинка № {notebook.index('end')+1}")
+            lb = ttk.Label(tab, image=img)
+            lb.pack(padx=10, pady=10)
             lb.image = img
         except Exception as e:
            mb.showerror("Ошибка!", f"Ошибка при загрузке изображения -->  {e}")
@@ -55,7 +57,7 @@ label.pack(pady=10)
 button = Button(text="Загрузить изображение", command=prog)
 button.pack(pady=10)
 
-progress = ttk.Progressbar(window, orient="horizontal", length=300, mode="determinate")
+progress = ttk.Progressbar(window, orient="horizontal", length=300, mode="determinate")  
 progress.pack(pady=10)
 
 width_lable = ttk.Label(text="Ширина: ")
@@ -67,6 +69,12 @@ height_lable = ttk.Label(text="Высота: ")
 height_lable.pack(side='left', padx=(10, 0))
 height_spinbox = ttk.Spinbox(from_=200, to=500, increment=50, width=5)
 height_spinbox.pack(side='left', padx=(0, 10))
+
+toplevel_window = Toplevel(window)
+toplevel_window.title("Изображение собачек")
+
+notebook = ttk.Notebook(toplevel_window)
+notebook.pack(fill='both', expand=True, padx=10, pady=10)
 
 
 window.mainloop()
